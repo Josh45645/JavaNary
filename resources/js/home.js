@@ -17,13 +17,10 @@ class Star {
         this.gravity = 1;
     }
     draw() {
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, Math.abs(this.radius), 0, Math.PI * 2, false);
+    
         ctx.shadowColor = "#e3eaef";
-        ctx.shadowBlur = Math.random() * 20;
         ctx.fillStyle = this.color;
-        ctx.fill();
+        
         ctx.closePath();
         ctx.restore();
     }
@@ -63,55 +60,6 @@ class Star {
         this.x += this.velocity.x;
         this.y += this.velocity.y;
         this.draw();
-    }
-}
-
-class Explosion {
-    constructor(x, y, radius, color, velocity) {
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
-        this.color = color;
-        this.velocity = velocity;
-        this.friction = 0.75;
-        this.gravity = 1;
-        this.life = 100;
-        this.opacity = 1;
-    }
-    draw() {
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, Math.abs(this.radius), 0, Math.PI * 2, false);
-        ctx.shadowColor = "#e3eaef";
-        ctx.shadowBlur = Math.random() * 20;
-        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-        ctx.fill();
-        ctx.closePath();
-        ctx.restore();
-    }
-
-    update() {
-        if (
-            this.x + this.velocity.x + this.radius > canvas.width ||
-            this.x - this.radius < 0
-        ) {
-            this.velocity.x = -this.velocity.x * this.friction;
-        }
-
-        if (
-            this.y + this.velocity.y + this.radius >=
-            canvas.height - groundHeight
-        ) {
-            this.velocity.y = -this.velocity.y * this.friction;
-            this.velocity.x *= this.friction;
-        } else {
-            this.velocity.y += this.gravity;
-        }
-        this.x += this.velocity.x;
-        this.y += this.velocity.y;
-        this.draw();
-        this.life--;
-        this.opacity -= 1 / this.life;
     }
 }
 
